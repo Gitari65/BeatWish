@@ -25,6 +25,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7a8da678-edad-46a5-b131-9790c72d17b8"
+      }
+    },
+    "owner": "gitari65",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
