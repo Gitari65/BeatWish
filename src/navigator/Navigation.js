@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from '../screens/Home'
 import Welcome from '../screens/Welcome';
+import Login from "../screens/Login";
 
 const Stack = createStackNavigator();
 const screenOptionStyle = {
@@ -16,7 +17,8 @@ const screenOptionStyle = {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             {/* <Stack.Screen name="Home" component={Home} /> */}
-            <Stack.Screen name="Welcome" component={Welcome}/>
+        {/* <Stack.Screen name="Welcome" component={Welcome}/> */}
+            <Stack.Screen name="Login" component={Login}/>
         </Stack.Navigator>
     );
 }
