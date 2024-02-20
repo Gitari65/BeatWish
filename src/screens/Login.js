@@ -7,9 +7,11 @@ import Svg, { Path } from "react-native-svg";
 import svImageSource from "../assets/img/svg.png";
 import { Merienda_400Regular ,useFonts} from "@expo-google-fonts/merienda";
 import musicPic from "../assets/img/music.png";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
   const [show, setShow] = useState(false);
+   const navigation = useNavigation();
   let [fontsLoaded] = useFonts({
     Merienda:
       Merienda_400Regular
@@ -40,6 +42,10 @@ const Login = () => {
         height: 45,
       },
     });
+    const handleLogin = () => {
+     
+      navigation.navigate("Home",{screen:"HomeTab"});
+    }
   return (
 <NativeBaseProvider>
   <Stack space={0} w="100%" h={"100%"} alignItems="center" direction={"column"} backgroundColor={"#000940"}>
@@ -98,7 +104,7 @@ const Login = () => {
                     Sign Up
                   </Text>
                 </Text>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity onPress={handleLogin} style={styles.button}>
                       <LinearGradient
                         colors={['#47013F', '#8C1279', '#8C1279']}
                         style={styles.gradient}>
