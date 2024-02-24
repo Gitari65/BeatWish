@@ -4,8 +4,8 @@ import { useFonts,Montserrat_200ExtraLight,Montserrat_400Regular } from "@expo-g
 import logoImage from '../assets/img/logo2.png';
 import { Merienda_300Light,Merienda_400Regular } from "@expo-google-fonts/merienda";
 
-
 const Welcome = () => {
+ 
     let [fontsLoaded] = useFonts({
       Merienda:
         Merienda_400Regular
@@ -30,7 +30,7 @@ const Welcome = () => {
         text:{
             fontFamily: 'Merienda',
             color:"white",
-            transform:"translateY(30px)",
+            transform: [{ translateY: 30 }],
             fontSize:30,
             width:150
         },
@@ -41,7 +41,7 @@ const Welcome = () => {
         text2:{
             color:"#CFA118",
             fontSize:20,
-            transform:"translateY(30px)",
+            transform: [{ translateY: 30 }],
             fontFamily: 'Merienda',
         },
         text3:{
