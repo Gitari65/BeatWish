@@ -10,10 +10,12 @@ import { BottomTabBar,createBottomTabNavigator } from "@react-navigation/bottom-
 import HomeTab from "../screens/BottomTabs/HomeTab";
 import ProfileTab from "../screens/BottomTabs/ProfileTab";
 import SessionTab from "../screens/BottomTabs/SessionTab";
+import { ChatTab } from "../screens/BottomTabs/ChatTab";
 
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
 const screenOptionStyle = {
+  headerShown: false,
     headerStyle: {
         backgroundColor: "#000940",
     },
@@ -38,27 +40,42 @@ const screenOptionStyle = {
     const HomeStack=()=>{
         return(
             
-                <Tab.Navigator>
+                <Tab.Navigator  
+                screenOptions={
+                  {
+                    headerShown: false,
+                    tabBarActiveTintColor: '#8C1279',
+                    tabBarInactiveTintColor: 'gray',
+                    tabBarStyle: {
+                      backgroundColor: 'white',
+                      borderTopColor: 'transparent',
+                    },
+                  }
+                }>
                  <Tab.Screen name="HomeTab" component={HomeTab}
                  options={{
                     tabBarLabel: 'Home',
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => (
                       <MaterialCommunityIcons name="home" color={color} size={size} />
                     ),
                   }
                  }
                   />
-                <Tab.Screen name="ProfileTab" component={ProfileTab}
+           
+                  <Tab.Screen name="ScanTab" component={SessionTab}
                 options={{
-                    tabBarLabel: 'Profile',
+                  headerShown: false,
+                    tabBarLabel: 'Scan',
                     tabBarIcon: ({ color, size }) => (
-                      <MaterialCommunityIcons name="account" color={color} size={size} />
+                      <MaterialCommunityIcons name="qrcode-scan" color={color} size={size} />
                     ),
                   }
                 }
                 />
                 <Tab.Screen name="SessionTab" component={SessionTab}
                 options={{
+                  headerShown: false,
                     tabBarLabel: 'Session',
                     tabBarIcon: ({ color, size }) => (
                       <MaterialCommunityIcons name="music" color={color} size={size} />
@@ -66,6 +83,20 @@ const screenOptionStyle = {
                   }
                 }
                 />
+                     <Tab.Screen name="ChatTab" component={ChatTab}
+                     options={
+                      {
+                        headerShown: false,
+                        tabBarLabel: 'Chat',
+                        tabBarIcon: ({ color, size }) => (
+                          <MaterialCommunityIcons name="chat" color={color} size={size} />
+                        ),
+                      
+                      }
+                     }
+               
+                />
+              
     
                 </Tab.Navigator>
             )
