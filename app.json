@@ -32,8 +32,17 @@
       }
     },
     "owner": "gitari65",
-    "plugins": [
+    "plugins": [[
       "expo-font"
+        ]
+        ,[
+            "expo-barcode-scanner",
+          {
+            "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
+      }
+    ]
+    
+      
     ]
   }
 }
