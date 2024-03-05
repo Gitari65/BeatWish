@@ -89,31 +89,118 @@ export default class HomeTab extends React.Component {
               />
           
           </Box>
+
+          {/* My Sessions */}
           <Box w="100%" h="50%" bg="white" borderRadius={10} >
               <Text style={styles.mySessionTitle}>My Sessions</Text>
               <HStack w="100%" h="100%" bg="white" borderRadius={10}   backgroundColor={"white"}  marginTop={2}>
-                   <Box w="50%" h="50%" bg="white" borderRadius={10}   backgroundColor={"white"} >
+                   <Box w="45%" h="50%" bg="white" borderRadius={10}  margin={2} backgroundColor={"white"} >
                                    
 
-                   <Box flex={1} bg="rgba(0, 9, 64, 0.8)" height={"0.5"} alignItems="center" justifyContent="center" style={styles.mySessionItem}>
-                      <ImageBackground source={djScene} style={{flex: 1, resizeMode: "cover",width:"100%",borderRadius:20}}>
+                      <Box flex={1} bg="rgba(0, 9, 64, 0.8)" height={"0.5"} alignItems="center" justifyContent="center" style={styles.mySessionItem}>
+                          <ImageBackground source={djScene} style={{flex: 1, resizeMode: "cover",width:"100%",borderRadius:20}}>
+                              <Box flex={1} bg="rgba(0, 9, 64, 0.8)" >
+                                
+                                <Text style={styles.sessionTitle}>Java Night</Text>
+                                {/* <TouchableOpacity onPress={handleJoinLive} style={styles.sessionButton}>
+                                        <LinearGradient
+                                            colors={['#47013F', '#8C1279', '#8C1279']}
+                                            style={styles.gradient}>
+                                            <Text style={styles.sessionTitle}>Join</Text>
+                                          </LinearGradient>
+                                  </TouchableOpacity> */}
+                              </Box>
+                          </ImageBackground>
+                
+                        </Box>
                         
-                        <Text style={styles.sessionTitle}>Java Night</Text>
-                        {/* <TouchableOpacity onPress={handleJoinLive} style={styles.sessionButton}>
-                                <LinearGradient
-                                    colors={['#47013F', '#8C1279', '#8C1279']}
-                                    style={styles.gradient}>
-                                    <Text style={styles.sessionTitle}>Join</Text>
-                                  </LinearGradient>
-                          </TouchableOpacity> */}
-                      </ImageBackground>
-            
-           </Box>
 
 
-                    </Box>   
+                    </Box> 
+
+                    <Box w="45%" h="50%" bg="white" borderRadius={10} margin={2}  backgroundColor={"white"} >
+                                   
+
+                      <Box flex={1} bg="rgba(0, 9, 64, 0.8)" height={"0.5"} alignItems="center" justifyContent="center" style={styles.mySessionItem}>
+                          <ImageBackground source={djScene} style={{flex: 1, resizeMode: "cover",width:"100%",borderRadius:20}}>
+                              <Box flex={1} bg="rgba(0, 9, 64, 0.8)" >
+                                
+                                <Text style={styles.sessionTitle}>Java Night</Text>
+                                {/* <TouchableOpacity onPress={handleJoinLive} style={styles.sessionButton}>
+                                        <LinearGradient
+                                            colors={['#47013F', '#8C1279', '#8C1279']}
+                                            style={styles.gradient}>
+                                            <Text style={styles.sessionTitle}>Join</Text>
+                                          </LinearGradient>
+                                  </TouchableOpacity> */}
+                              </Box>
+                          </ImageBackground>
+                
+                        </Box>
+                        
+
+
+                    </Box> 
+                      
               </HStack>
           </Box>
+          {/* End My Sessions */}
+
+          {/*Joined Sessions */}
+          <Box w="100%" h="50%" bg="white" borderRadius={10} >
+              <Text style={styles.mySessionTitle}>My Sessions</Text>
+              <HStack w="100%" h="100%" bg="white" borderRadius={10}   backgroundColor={"white"}  marginTop={2}>
+                   <Box w="45%" h="50%" bg="white" borderRadius={10}  margin={2} backgroundColor={"white"} >
+                                   
+
+                      <Box flex={1} bg="rgba(0, 9, 64, 0.8)" height={"0.5"} alignItems="center" justifyContent="center" style={styles.mySessionItem}>
+                          <ImageBackground source={djScene} style={{flex: 1, resizeMode: "cover",width:"100%",borderRadius:20}}>
+                              <Box flex={1} bg="rgba(0, 9, 64, 0.8)" >
+                                
+                                <Text style={styles.sessionTitle}>Java Night</Text>
+                                {/* <TouchableOpacity onPress={handleJoinLive} style={styles.sessionButton}>
+                                        <LinearGradient
+                                            colors={['#47013F', '#8C1279', '#8C1279']}
+                                            style={styles.gradient}>
+                                            <Text style={styles.sessionTitle}>Join</Text>
+                                          </LinearGradient>
+                                  </TouchableOpacity> */}
+                              </Box>
+                          </ImageBackground>
+                
+                        </Box>
+                        
+
+
+                    </Box> 
+
+                    <Box w="45%" h="50%" bg="white" borderRadius={10} margin={2}  backgroundColor={"white"} >
+                                   
+
+                      <Box flex={1} bg="rgba(0, 9, 64, 0.8)" height={"0.5"} alignItems="center" justifyContent="center" style={styles.mySessionItem}>
+                          <ImageBackground source={djScene} style={{flex: 1, resizeMode: "cover",width:"100%",borderRadius:20}}>
+                              <Box flex={1} bg="rgba(0, 9, 64, 0.8)" >
+                                
+                                <Text style={styles.sessionTitle}>Java Night</Text>
+                                {/* <TouchableOpacity onPress={handleJoinLive} style={styles.sessionButton}>
+                                        <LinearGradient
+                                            colors={['#47013F', '#8C1279', '#8C1279']}
+                                            style={styles.gradient}>
+                                            <Text style={styles.sessionTitle}>Join</Text>
+                                          </LinearGradient>
+                                  </TouchableOpacity> */}
+                              </Box>
+                          </ImageBackground>
+                
+                        </Box>
+                        
+
+
+                    </Box> 
+                      
+              </HStack>
+          </Box>
+          {/* End Joined Sessions */} 
         </Stack>
       </NativeBaseProvider>
     );
