@@ -11,6 +11,7 @@ import HomeTab from "../screens/BottomTabs/HomeTab";
 import ProfileTab from "../screens/BottomTabs/ProfileTab";
 import SessionTab from "../screens/BottomTabs/SessionTab";
 import { ChatTab } from "../screens/BottomTabs/ChatTab";
+import ScanTab from "../screens/BottomTabs/ScanTab";
 
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
@@ -63,7 +64,7 @@ const screenOptionStyle = {
                  }
                   />
            
-                  <Tab.Screen name="ScanTab" component={SessionTab}
+                  <Tab.Screen name="ScanTab" component={ScanTab}
                 options={{
                   headerShown: false,
                     tabBarLabel: 'Scan',
