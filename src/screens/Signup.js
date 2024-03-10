@@ -8,17 +8,25 @@ import svImageSource from "../assets/img/svg.png";
 import { Merienda_400Regular ,useFonts} from "@expo-google-fonts/merienda";
 import musicPic from "../assets/img/music.png";
 import { useNavigation } from "@react-navigation/native";
+// import {supabase} from "../config/supabaseconfig";
 
-const Login = () => {
+const Signup = () => {
   const [show, setShow] = useState(false);
+  const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
    const navigation = useNavigation();
+    const handleSignup = () => {
+     
+      navigation.navigate("Home",{screen:"HomeTab"});
+    }
+
   let [fontsLoaded] = useFonts({
     Merienda:
       Merienda_400Regular
     });
-    const moveToSignup=()=>{
-      navigation.navigate("Signup");
-    }
 
     const styles = StyleSheet.create({
       imageBackground: {
@@ -45,10 +53,7 @@ const Login = () => {
         height: 45,
       },
     });
-    const handleLogin = () => {
-     
-      navigation.navigate("Home",{screen:"HomeTab"});
-    }
+   
   return (
 <NativeBaseProvider>
   <Stack space={0} w="100%" h={"100%"} alignItems="center" direction={"column"} backgroundColor={"#000940"}>
@@ -59,8 +64,8 @@ const Login = () => {
       <Box flex={1} bg="rgba(0, 9, 64, 0.5)" alignItems="center" justifyContent="center">
         <Box w="100%" h="35%" alignItems="center" justifyContent="center">
           <FormControl alignItems="center">
-            <Text fontSize="4xl" style={styles.text} color="muted.700" _dark={{ color: "muted.300" }}>
-              Welcome Back
+            <Text fontSize="3xl" style={styles.text} color="muted.700" _dark={{ color: "muted.300" }}>
+              Welcome to Beat Wish
             </Text>
           </FormControl>
         </Box>
@@ -73,7 +78,7 @@ const Login = () => {
 
         <Box w="100%" h="50%" bg="white" alignItems="center"  >
         
-         <FormControl alignItems={"center"} >
+         <FormControl alignItems={"center"} space={3} >
               
               <Input
               w={{
@@ -83,6 +88,7 @@ const Login = () => {
               InputLeftElement={<Icon as={<MaterialIcons name="email" />} size={5} ml="2" color="muted.400" />}
               placeholder="Email"
               variant={"underlined"}
+              
             />
             <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
                 Try different from previous passwords.
@@ -101,17 +107,31 @@ const Login = () => {
                   }
                   placeholder="Password" variant={"underlined"} 
                 />
-                <Text fontSize="sm" color="muted.700" _dark={{ color: "muted.300" }} onPress={moveToSignup}>
+                <Input
+                  w={{
+                    base: "75%",
+                    md: "25%"
+                  }}
+                  type={show ? "text" : "password"}
+                  InputLeftElement={<Icon as={<MaterialIcons name="lock" />} size={5} ml="2" color="muted.400" />}
+                  InputRightElement={
+                    <Pressable onPress={() => setShow(!show)}>
+                      <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted.400" />
+                    </Pressable>
+                  }
+                  placeholder="Confirm Password" variant={"underlined"} 
+                />
+                <Text fontSize="sm" color="muted.700" _dark={{ color: "muted.300" }}>
                   Don't have an account?{" "}
                   <Text bold color="primary.500" _dark={{ color: "primary.300" }}>
                     Sign Up
                   </Text>
                 </Text>
-              <TouchableOpacity onPress={handleLogin} style={styles.button}>
+              <TouchableOpacity onPress={handleSignup} style={styles.button}>
                       <LinearGradient
                         colors={['#47013F', '#8C1279', '#8C1279']}
                         style={styles.gradient}>
-                        <Text style={styles.text}>Login</Text>
+                        <Text style={styles.text}>Signup</Text>
                       </LinearGradient>
               </TouchableOpacity>
                 <Text fontSize="sm" color="muted.700" _dark={{ color: "muted.300" }}>
@@ -132,4 +152,4 @@ const Login = () => {
 
 };
 
-export default Login;
+export default Signup;
