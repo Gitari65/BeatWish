@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Welcome from '../screens/Welcome';
+import  Signup from "../screens/Signup";
 import Login from "../screens/Login";
 import Session from "../screens/Session";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -12,6 +13,8 @@ import ProfileTab from "../screens/BottomTabs/ProfileTab";
 import SessionTab from "../screens/BottomTabs/SessionTab";
 import { ChatTab } from "../screens/BottomTabs/ChatTab";
 import ScanTab from "../screens/BottomTabs/ScanTab";
+
+
 
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
@@ -28,6 +31,7 @@ const screenOptionStyle = {
        
             return (
                 <Stack.Navigator screenOptions={screenOptionStyle}>
+                <Stack.Screen name="Signup" component={Signup}/>
                    
                     <Stack.Screen name="Login" component={Login}/>
                     <Stack.Screen name="Session" component={Session}/>
