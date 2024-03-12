@@ -8,16 +8,21 @@ import Session from "../screens/Session";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomTabBar,createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import CustomDrawerContent from "../constants/CustomDrawerContent";
+
 import HomeTab from "../screens/BottomTabs/HomeTab";
 import ProfileTab from "../screens/BottomTabs/ProfileTab";
 import SessionTab from "../screens/BottomTabs/SessionTab";
 import { ChatTab } from "../screens/BottomTabs/ChatTab";
 import ScanTab from "../screens/BottomTabs/ScanTab";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 
 
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
 const screenOptionStyle = {
   headerShown: false,
     headerStyle: {
@@ -35,7 +40,7 @@ const screenOptionStyle = {
                    
                     <Stack.Screen name="Login" component={Login}/>
                     <Stack.Screen name="Session" component={Session}/>
-                    <Stack.Screen name="Home" component={HomeStack}/>
+                    <Stack.Screen name="Home" component={DrawerNavigation}/>
                 </Stack.Navigator>
             )
         };
@@ -105,6 +110,31 @@ const screenOptionStyle = {
     
                 </Tab.Navigator>
             )
+    }
+    const DrawerNavigation=()=>{
+        return(
+            <Drawer.Navigator  drawerContent={(props)=> <CustomDrawerContent{...props}/>}>
+                <Drawer.Screen name="Home" component={HomeStack}
+                  options={{
+                    headerShown: false,
+                    tabBarLabel: 'Home',
+                    drawerIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons name="home" color={color} size={size} />
+                    ),
+                  
+                  }
+                  }
+                />
+                <Drawer.Screen name="Profile" 
+                component={ProfileTab}
+                  options={{
+                    drawerIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons name="account" color={color} size={size} />
+                    ),
+                  }}
+                />
+            </Drawer.Navigator>
+        )
     }
 
 export default AppNavigation;
