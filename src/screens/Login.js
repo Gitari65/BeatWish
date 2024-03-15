@@ -8,10 +8,14 @@ import svImageSource from "../assets/img/svg.png";
 import { Merienda_400Regular ,useFonts} from "@expo-google-fonts/merienda";
 import musicPic from "../assets/img/music.png";
 import { useNavigation } from "@react-navigation/native";
+import { supabase } from "../config/supabaseconfig";
 
 const Login = () => {
   const [show, setShow] = useState(false);
    const navigation = useNavigation();
+   const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
   let [fontsLoaded] = useFonts({
     Merienda:
       Merienda_400Regular
@@ -20,6 +24,25 @@ const Login = () => {
       navigation.navigate("Signup");
     }
 
+  const handleLogin = () => {
+      
+        // navigation.navigate("Home",{screen:"HomeTab"});
+        setLoading(true);
+        if(email !== "" && password !== ""){
+          supabase.auth.signInWithPassword({
+            email: email,
+            password: password
+          }).then((response)=>{
+            setLoading(false);
+            if(response.error){
+              alert(response.error.message);
+            }else{
+              navigation.navigate("Home",{screen:"HomeTab"});
+            }
+          });
+        }
+
+      }
     const styles = StyleSheet.create({
       imageBackground: {
         flex: 1,
@@ -45,10 +68,7 @@ const Login = () => {
         height: 45,
       },
     });
-    const handleLogin = () => {
-     
-      navigation.navigate("Home",{screen:"HomeTab"});
-    }
+    
   return (
 <NativeBaseProvider>
   <Stack space={0} w="100%" h={"100%"} alignItems="center" direction={"column"} backgroundColor={"#000940"}>
@@ -83,6 +103,8 @@ const Login = () => {
               InputLeftElement={<Icon as={<MaterialIcons name="email" />} size={5} ml="2" color="muted.400" />}
               placeholder="Email"
               variant={"underlined"}
+              value={email}
+              onChangeText={(text) => setEmail(text)}
             />
             <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
                 Try different from previous passwords.
@@ -100,6 +122,8 @@ const Login = () => {
                     </Pressable>
                   }
                   placeholder="Password" variant={"underlined"} 
+                  onChangeText={(text) => setPassword(text)}
+                  value={password}
                 />
                 <Text fontSize="sm" color="muted.700" _dark={{ color: "muted.300" }} onPress={moveToSignup}>
                   Don't have an account?{" "}
