@@ -16,6 +16,7 @@ import SessionTab from "../screens/BottomTabs/SessionTab";
 import { ChatTab } from "../screens/BottomTabs/ChatTab";
 import ScanTab from "../screens/BottomTabs/ScanTab";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import Logout from "../screens/Logout";
 
 
 
@@ -40,6 +41,7 @@ const screenOptionStyle = {
                    
                     <Stack.Screen name="Login" component={Login}/>
                     <Stack.Screen name="Session" component={Session}/>
+                    <Stack.Screen name="Logout" component={Logout}/>
                     <Stack.Screen name="Home" component={DrawerNavigation}/>
                 </Stack.Navigator>
             )
@@ -133,6 +135,17 @@ const screenOptionStyle = {
                     ),
                   }}
                 />
+             
+                <Drawer.Screen name="Logout" component={Logout}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons name="logout" color={color} size={size} />
+                    ),
+                  }}
+                />
+                
+
+                
             </Drawer.Navigator>
         )
     }
