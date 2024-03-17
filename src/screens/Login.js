@@ -2,13 +2,15 @@ import { Stack,Image, WarningOutlineIcon,Input, Icon,FormControl, Pressable,useT
 import { StyleSheet,ImageBackground,TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Svg, { Path } from "react-native-svg";
 import svImageSource from "../assets/img/svg.png";
 import { Merienda_400Regular ,useFonts} from "@expo-google-fonts/merienda";
 import musicPic from "../assets/img/music.png";
 import { useNavigation } from "@react-navigation/native";
 import { supabase } from "../config/supabaseconfig";
+import SpinnerComponent from "../constants/SpinnerComponent";
+import AlertDialog from "../constants/AlertDialog";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -16,6 +18,26 @@ const Login = () => {
    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [loginSuccess,setLoginSuccess]=useState("")
+    const [errorMessage,setErrorMessage]=useState("");
+    const [userSession,setuserSession]=useState("");
+    
+    useEffect(() => {
+      // Check if the user is already logged in
+      const checkUserLoggedIn = async () => {
+        try {
+          const { data: user, error } = await supabase.auth.getUser();
+          if (user) {
+            // User is logged in, navigate to home page
+            navigation.navigate('Home');
+          }
+        } catch (error) {
+          console.error('Error checking user login status:', error.message);
+        }
+      };
+  
+      checkUserLoggedIn();
+    }, []);
   let [fontsLoaded] = useFonts({
     Merienda:
       Merienda_400Regular
@@ -28,6 +50,11 @@ const Login = () => {
       
         // navigation.navigate("Home",{screen:"HomeTab"});
         setLoading(true);
+        if(email===""|| password===""){
+          alert("All fields required")
+          setLoading(false);
+          return
+        }
         if(email !== "" && password !== ""){
           supabase.auth.signInWithPassword({
             email: email,
@@ -35,14 +62,19 @@ const Login = () => {
           }).then((response)=>{
             setLoading(false);
             if(response.error){
-              alert(response.error.message);
+              setErrorMessage(response.error.message);
+              setLoginSuccess(false);
+              setLoading(false);
             }else{
               navigation.navigate("Home",{screen:"HomeTab"});
+              setLoginSuccess(true);
             }
           });
         }
 
       }
+ 
+
     const styles = StyleSheet.create({
       imageBackground: {
         flex: 1,
@@ -94,6 +126,7 @@ const Login = () => {
         <Box w="100%" h="50%" bg="white" alignItems="center"  >
         
          <FormControl alignItems={"center"} >
+         {/* <AlertDialog status={loginSuccess ? 'success' : 'error'} text={errorMessage} /> */}
               
               <Input
               w={{
@@ -135,7 +168,8 @@ const Login = () => {
                       <LinearGradient
                         colors={['#47013F', '#8C1279', '#8C1279']}
                         style={styles.gradient}>
-                        <Text style={styles.text}>Login</Text>
+                        {loading?(<SpinnerComponent/>):(<Text style={styles.text}>Login</Text>) }
+                       
                       </LinearGradient>
               </TouchableOpacity>
                 <Text fontSize="sm" color="muted.700" _dark={{ color: "muted.300" }}>
