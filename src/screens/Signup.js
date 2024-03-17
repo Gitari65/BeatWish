@@ -3,12 +3,13 @@ import { StyleSheet,ImageBackground,TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import Svg, { Path } from "react-native-svg";
+import Svg, { Path, err } from "react-native-svg";
 import svImageSource from "../assets/img/svg.png";
 import { Merienda_400Regular ,useFonts} from "@expo-google-fonts/merienda";
 import musicPic from "../assets/img/music.png";
 import { useNavigation } from "@react-navigation/native";
-// import {supabase} from "../config/supabaseconfig";
+import {supabase} from "../config/supabaseconfig";
+import SpinnerComponent from "../constants/SpinnerComponent";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -19,10 +20,34 @@ const Signup = () => {
 
    const navigation = useNavigation();
     const handleSignup = () => {
+      if(email===""|| password===""||confirmPassword===""){
+        alert("All fields required")
+        setLoading(false);
+        return
+      }
      
-      navigation.navigate("Home",{screen:"HomeTab"});
-    }
+      // navigation.navigate("Home",{screen:"HomeTab"});
+      if(password === confirmPassword){
+        setLoading(true);
+        supabase.auth.signUp({
+          email: email,
+          password: password
+        }).then((response)=>{
+          setLoading(false);
+          if(response.error){
+            alert(response.error.message);
+          }else{
+            alert("Account created successfully");
+            navigation.navigate("Login");
+          }
+        });
 
+    }
+    
+  }
+const moveToSignin=()=>{
+      navigation.navigate("Login");
+    }
   let [fontsLoaded] = useFonts({
     Merienda:
       Merienda_400Regular
@@ -53,7 +78,17 @@ const Signup = () => {
         height: 45,
       },
     });
+
+    const saveUserDetails=async()=>{
+      
+        const { error } = await supabase
+        .from('users')
+        .insert({ id: 1, name: 'Denmark' })
+        if(error) alert(error);
    
+            }
+            
+           
   return (
 <NativeBaseProvider>
   <Stack space={0} w="100%" h={"100%"} alignItems="center" direction={"column"} backgroundColor={"#000940"}>
@@ -88,6 +123,8 @@ const Signup = () => {
               InputLeftElement={<Icon as={<MaterialIcons name="email" />} size={5} ml="2" color="muted.400" />}
               placeholder="Email"
               variant={"underlined"}
+              value={email}
+              onChangeText={(text)=>setEmail(text)}
               
             />
             <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
@@ -106,6 +143,8 @@ const Signup = () => {
                     </Pressable>
                   }
                   placeholder="Password" variant={"underlined"} 
+                  onChangeText={(text) => setPassword(text)}
+                  value={password}
                 />
                 <Input
                   w={{
@@ -120,26 +159,25 @@ const Signup = () => {
                     </Pressable>
                   }
                   placeholder="Confirm Password" variant={"underlined"} 
+                  value={confirmPassword}
+                  onChangeText={(text)=>setConfirmPassword(text)}
                 />
-                <Text fontSize="sm" color="muted.700" _dark={{ color: "muted.300" }}>
-                  Don't have an account?{" "}
-                  <Text bold color="primary.500" _dark={{ color: "primary.300" }}>
-                    Sign Up
-                  </Text>
-                </Text>
+              
               <TouchableOpacity onPress={handleSignup} style={styles.button}>
                       <LinearGradient
                         colors={['#47013F', '#8C1279', '#8C1279']}
                         style={styles.gradient}>
-                        <Text style={styles.text}>Signup</Text>
+                        {loading?(<SpinnerComponent/>):(<Text style={styles.text}>Signup</Text>)}
+                        
                       </LinearGradient>
               </TouchableOpacity>
-                <Text fontSize="sm" color="muted.700" _dark={{ color: "muted.300" }}>
-                  Forgot Password?{" "}
+              <Text fontSize="sm" color="muted.700" _dark={{ color: "muted.300" }} onPress={moveToSignin}>
+                  Already have an account?{" "}
                   <Text bold color="primary.500" _dark={{ color: "primary.300" }}>
-                    Reset
+                    Sign in
                   </Text>
                 </Text>
+            
             </FormControl>
         </Box>
      
