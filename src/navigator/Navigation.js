@@ -37,9 +37,10 @@ const screenOptionStyle = {
        
             return (
                 <Stack.Navigator screenOptions={screenOptionStyle}>
+                <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="Signup" component={Signup}/>
                    
-                    <Stack.Screen name="Login" component={Login}/>
+                    
                     <Stack.Screen name="Session" component={Session}/>
                     <Stack.Screen name="Logout" component={Logout}/>
                     <Stack.Screen name="Home" component={DrawerNavigation}/>
