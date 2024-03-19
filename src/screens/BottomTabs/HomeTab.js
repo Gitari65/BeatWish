@@ -13,12 +13,16 @@ import discImage from "../../assets/img/disc.png";
 import femaleDj from "../../assets/img/femaleDj.jpg";
 import clockImage from "../../assets/img/clock.png";
 import locationImage from "../../assets/img/gps.png";
+import { useNavigation } from "@react-navigation/native";
 
 const sliderWidth = Dimensions.get('window').width;
 const itemWidth = 200; // Adjust as needed
 const handleJoinLive = () => {
   console.log("Join Live");
 }
+
+
+
 
 
 
@@ -32,13 +36,21 @@ export default class HomeTab extends React.Component {
       { title: 'Live 2' ,image:djScene},
       { title: 'Live 3',image:djScene}
     ],
-    };
+    
+  }
+
+  }
+  moveToProfileScreen = () => {
+    console.log("Move to Profile Screen");
+    const { navigation } = this.props;
+    navigation.navigate('Profile');
   }
 componentDidMount(){
   setTimeout(() => {
     this.setState({isLoaded:true});
   }, 3000);
 }
+
 
   _renderItem = ({ item, index }) => {
     return (
@@ -78,10 +90,13 @@ componentDidMount(){
             <ImageBackground source={imageSource} style={{flex: 1, resizeMode: "cover"}}>
                       <Box flex={1} bg="rgba(0, 9, 64, 0.8)" >
                         <HStack space={2} h="30%"  >
-                                <Avatar bg="green.500" style={styles.imageAvatar} source={{
+                        <TouchableOpacity onPress={moveToProfileScreen} >
+                          <Avatar bg="green.500"  style={styles.imageAvatar} source={{
                                   uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
                                 }}>
                                 </Avatar>
+                        </TouchableOpacity>
+                                
                                 <VStack space={1} h="100%" >
                                   <Text color="white" style={styles.text2} fontSize="md" bold>
                                   Good Morning,
