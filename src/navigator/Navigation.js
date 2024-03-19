@@ -17,6 +17,7 @@ import { ChatTab } from "../screens/BottomTabs/ChatTab";
 import ScanTab from "../screens/BottomTabs/ScanTab";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Logout from "../screens/Logout";
+import Profile from "../screens/Profile";
 
 
 
@@ -44,6 +45,7 @@ const screenOptionStyle = {
                     <Stack.Screen name="Session" component={Session}/>
                     <Stack.Screen name="Logout" component={Logout}/>
                     <Stack.Screen name="Home" component={DrawerNavigation}/>
+                    <Stack.Screen name="Profile" component={Profile}/>
                 </Stack.Navigator>
             )
         };
