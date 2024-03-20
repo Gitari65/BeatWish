@@ -20,6 +20,17 @@ const itemWidth = 200; // Adjust as needed
 const handleJoinLive = () => {
   console.log("Join Live");
 }
+function ProfilePhoto(){
+  const navigation = useNavigation();
+  return(
+    <TouchableOpacity onPress={navigation.navigate('Profile')} >
+    <Avatar bg="green.500"  style={styles.imageAvatar} source={{
+            uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+          }}>
+          </Avatar>
+  </TouchableOpacity>
+  );
+}
 
 
 
@@ -90,12 +101,7 @@ componentDidMount(){
             <ImageBackground source={imageSource} style={{flex: 1, resizeMode: "cover"}}>
                       <Box flex={1} bg="rgba(0, 9, 64, 0.8)" >
                         <HStack space={2} h="30%"  >
-                        <TouchableOpacity onPress={moveToProfileScreen} >
-                          <Avatar bg="green.500"  style={styles.imageAvatar} source={{
-                                  uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                                }}>
-                                </Avatar>
-                        </TouchableOpacity>
+                     <ProfilePhoto/>
                                 
                                 <VStack space={1} h="100%" >
                                   <Text color="white" style={styles.text2} fontSize="md" bold>
