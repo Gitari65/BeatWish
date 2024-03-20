@@ -131,7 +131,7 @@ const screenOptionStyle = {
                   }
                 />
                 <Drawer.Screen name="Profile" 
-                component={ProfileTab}
+                component={Profile}
                   options={{
                     drawerIcon: ({ color, size }) => (
                       <MaterialCommunityIcons name="account" color={color} size={size} />
