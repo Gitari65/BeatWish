@@ -1,19 +1,74 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import { View, Text, Touchable } from 'react-native'
-import { Stack,NativeBaseProvider, Box,Avatar, Center, HStack ,Divider, Icon,Modal,FormControl,Button,Input,} from 'native-base'
+import { Stack,NativeBaseProvider, Box,Avatar, Center, HStack ,Divider, Icon,Modal,FormControl,Button,Input,ScrollView} from 'native-base'
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import { StyleSheet } from 'react-native';
+import { StyleSheet ,Alert} from 'react-native';
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { Use } from 'react-native-svg';
+import { supabase } from '../config/supabaseconfig';
 
 
   
 
-export default function Profile() {
+export default function   Profile() {
  const [modalVisible, setModalVisible] = React.useState(false);
         const initialRef = React.useRef(null);
         const finalRef = React.useRef(null);
+        const usernameRef=useRef(null);
+        const phone_noRef=useRef(null);
+        const aboutRef=useRef(null);
+        async function handleProfileSubmit(){
+          const username=usernameRef.current.value;
+          const phone=phone_noRef.current.value;
+          const about =aboutRef.current.value;
+          console.warn("clicked")
+                  
+// const { data: { user } } = await supabase.auth.getUser()
+            try {
+              if(username===""||phone===""){
+                     Alert.alert('Signin error', "All fields required", [
+                {
+                  text: 'Cancel',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ]);
+              }
+              
+                  const { error } = await supabase
+                  .from('users')
+                  .insert({ id: 1, username: username,phone_number:phone,about:about })
+
+                     
+                      if(error){
+                        console.log(error)
+                      }
+                      else{
+                        console.log("success")
+                        setModalVisible(false);
+                        usernameRef.current.clear();
+                        phone_noRef.current.clear();
+                        aboutRef.current.clear(); 
+                    
+                      }
+
+            } catch (error) {
+              console.log(error)
+
+              // Alert.alert('Signin error', error, [
+              //   {
+              //     text: 'Cancel',
+              //     onPress: () => console.log('Cancel Pressed'),
+              //     style: 'cancel',
+              //   },
+              //   {text: 'OK', onPress: () => console.log('OK Pressed')},
+              // ]);
+            }
+
+        }
     function UpdateModal() {
        
         return <>
@@ -29,15 +84,19 @@ export default function Profile() {
             <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} initialFocusRef={initialRef} finalFocusRef={finalRef}>
               <Modal.Content>
                 <Modal.CloseButton />
-                <Modal.Header>Contact Us</Modal.Header>
+                <Modal.Header>Update Profile</Modal.Header>
                 <Modal.Body>
-                  <FormControl>
-                    <FormControl.Label>Name</FormControl.Label>
-                    <Input ref={initialRef} />
+                  <FormControl> 
+                    <FormControl.Label>Username</FormControl.Label>
+                    <Input ref={usernameRef} />
                   </FormControl>
                   <FormControl mt="3">
-                    <FormControl.Label>Email</FormControl.Label>
-                    <Input />
+                    <FormControl.Label>Phone number</FormControl.Label>
+                    <Input ref={phone_noRef} />
+                  </FormControl>
+                  <FormControl mt="3">
+                    <FormControl.Label>About </FormControl.Label>
+                    <Input ref={aboutRef} />
                   </FormControl>
                 </Modal.Body>
                 <Modal.Footer>
@@ -48,7 +107,8 @@ export default function Profile() {
                       Cancel
                     </Button>
                     <Button onPress={() => {
-                    setModalVisible(false);
+                    
+                    handleProfileSubmit
                   }}>
                       Save
                     </Button>
@@ -137,7 +197,7 @@ export default function Profile() {
   return (
   
 <NativeBaseProvider>
-     <Stack space={4} w="100%" style={{padding: 0}} backgroundColor="#000940">
+     <ScrollView space={4} w="100%" style={{padding: 0}} backgroundColor="#000940" marginBottom={10}>
       <Box h="30%"  w="100%"  alignItems="center">
     
         
@@ -175,34 +235,48 @@ export default function Profile() {
             <Text style={styles.text5} >Nairobi, Kenya</Text>
 
           </HStack>
-           <HStack  marginTop={10}  space={6} alignItems="center" backgroundColor={"white"} p={2} borderRadius={"10"} margin={2} >
-          <Box alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
-           <UpdateModal/>
-          </Box>
-              <Text style={styles.text4}>Edit Profile</Text>
-          </HStack>
-          <HStack  marginTop={3}  space={6} alignItems="center" backgroundColor={"white"} p={2} borderRadius={"10"} margin={2} >
-          <Box alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
-            <Icon as={<MaterialCommunityIcons name="music" />} color="#8C1279" size="sm" />
-          </Box>
-              <Text style={styles.text4}>My Sessions</Text>
-          </HStack>
+
           <TouchableOpacity onPress={() => {
             setModalVisible(!modalVisible); }} alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
              <HStack  marginTop={10}  space={6} alignItems="center" backgroundColor={"white"} p={2} borderRadius={"10"} margin={2} >
-          <Box alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
+             <Box alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
            <UpdateModal/>
           </Box>
               <Text style={styles.text4}>Edit Profile</Text>
           </HStack>
             </TouchableOpacity>
-        
-          <HStack marginTop={3} space={6} alignItems="center"  backgroundColor={"white"} p={2} borderRadius={"10"} margin={2} >
-              <Box alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
+
+         
+
+          <TouchableOpacity onPress={() => console.log("clicked")} alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
+             <HStack  marginTop={2}  space={6} alignItems="center" backgroundColor={"white"} p={2} borderRadius={"10"} margin={2} >
+             <Box alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
+            <Icon as={<MaterialCommunityIcons name="music" />} color="#8C1279" size="sm" />
+          </Box>
+              <Text style={styles.text4}>My Sessions</Text>
+          </HStack>
+            </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => console.log("clicked")} alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
+             <HStack  marginTop={2}  space={6} alignItems="center" backgroundColor={"white"} p={2} borderRadius={"10"} margin={2} >
+          <Box alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
+          <Icon as={<MaterialIcons name="bar-chart" />} color="#8C1279" size="sm" />
+          </Box>
+              <Text style={styles.text4}>Analytics</Text>
+          </HStack>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => console.log("clicked")} alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
+             <HStack  marginTop={2}  space={6} alignItems="center" backgroundColor={"white"} p={2} borderRadius={"10"} margin={2} >
+             <Box alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
                   <Icon as={<MaterialIcons style={styles.icon} name="lock" />} color="#8C1279" size="sm" />
               </Box>
               <Text style={styles.text4}>Change Password</Text>
           </HStack>
+            </TouchableOpacity>
+        
+         
+
           <TouchableOpacity  marginTop={3} space={6} alignItems="center"  backgroundColor={"white"} p={2} borderRadius={"10"} margin={2} >
              <HStack space={6} alignItems="center"  backgroundColor={"white"} p={2} borderRadius={"10"} margin={2}>
                   <Box alignItems={"center"} w={8} h={8}  justifyContent={"center"} backgroundColor={"#DE9DAC"} borderRadius={"10"} >
@@ -218,7 +292,7 @@ export default function Profile() {
 
           </Box>
 
-    </Stack>
+    </ScrollView>
 </NativeBaseProvider>
    
   )
